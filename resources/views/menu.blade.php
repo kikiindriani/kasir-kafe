@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
 @section('content')
     <h1 class="text-4xl font-bold">Beranda</h1>
@@ -6,7 +6,7 @@
         <p class="mt-2 text-xl italic font-bold">Halo, </p>
         <p class="mt-2 text-xl">{{ session('user.level') }}!</p>
     </div>
-    
+
     <div class="mt-14">
         <div class="px-6 py-[25px] bg-white rounded-[10px] shadow-md border-2 border-[#389012] flex flex-col justify-between">
             <div class="content-header p-2">
@@ -54,7 +54,7 @@
 
                                     <!-- Modal Content -->
                                     <form action="{{ route('menu.update', $menu->id_menu) }}" method="post" class="self-stretch h-[276px] py-2.5 flex-col justify-start items-start gap-5 flex" enctype="multipart/form-data">
-                                        @csrf    
+                                        @csrf
                                         @method('PUT')
                                         <div class="self-stretch h-[72px] flex-col justify-center items-start gap-2.5 flex">
                                             <label for="nama_menu" class="text-[#389012] text-xl font-semibold font-['Poppins'] leading-normal">Nama menu</label>
@@ -86,14 +86,14 @@
                                                     <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                                                     </svg>
-                                                </div>  
-                                            </button>    
+                                                </div>
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
 
-                            
+
                             <!-- Delete menu -->
                             <div id="delete-modal-{{ $menu->id_menu }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                 <div class="w-[500px] h-[264px] px-10 py-[25px] bg-white rounded-[10px] shadow-[6px_7px_4px_0px_rgba(0,0,0,0.10)] border-2 border-[#389012] flex-col justify-start items-start gap-5 inline-flex overflow-hidden">
@@ -105,7 +105,7 @@
                                         <div class="text-[#389012] text-xl font-semibold font-['Poppins'] leading-normal">Hapus Kasir</div>
                                     </div>
                                     <form action="{{ route('menu.delete', $menu->id_menu) }}" method="post" class="self-stretch h-[276px] py-2.5 flex-col justify-start items-start gap-5 flex">
-                                        @csrf    
+                                        @csrf
                                         @method('DELETE')
                                         <div class="self-stretch h-[72px] flex-col justify-center items-start gap-2.5 flex">
                                             <label for="nama" class="text-[#389012] text-xl font-medium font-['Poppins'] leading-normal">Hapus Menu {{($menu->nama_menu)}}?</label>
@@ -117,8 +117,8 @@
                                                 <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                                                 </svg>
-                                            </div>  
-                                        </button>    
+                                            </div>
+                                        </button>
                                         </div>
                                     </form>
                                 </div>
@@ -142,7 +142,7 @@
             </div>
             <!-- Modal Content -->
             <form action="{{ route('menu.add') }}" method="post" class="self-stretch h-[276px] py-2.5 flex-col justify-start items-start gap-5 flex" enctype="multipart/form-data">
-                @csrf    
+                @csrf
                 <div class="self-stretch h-[72px] flex-col justify-center items-start gap-2.5 flex">
                     <label for="nama_menu" class="text-[#389012] text-xl font-semibold font-['Poppins'] leading-normal">Nama menu</label>
                     <input type="text" id="nama_menu" name="nama_menu" class="self-stretch h-[38px] p-2.5 rounded-[10px] border focus:outline-none border-[#389012] text-[#389012] text-xs font-semibold font-['Poppins']" placeholder="Alan Walker" required>
@@ -157,7 +157,7 @@
                         <div class="flex-1">
                             <input type="text" id="fileAddNameDisplay" name="fileAddNameDisplay" class="self-stretch h-[38px] w-[560px] rounded-[10px] border border-[#389012] bg-[#389012] bg-opacity-20 text-[#389012] text-xs font-semibold font-['Poppins'] pl-2 text-left" disabled />
                             <input type="file" hidden id="imageAdd_name" name="imageAdd_name" class="self-stretch h-[38px] w-[560px] rounded-[10px] border border-[#389012] text-[#389012] text-xs font-semibold font-['Poppins']" accept="image/jpeg, image/png, image/jpg, image/svg" onchange="AddFileName()">
-                           
+
                         </div>
                         <div class="flex-none">
                             <button type="button" class="self-stretch w-[150px] p-2.5 rounded-[10px] border border-[#389012] text-[#389012] text-xs font-semibold font-['Poppins'] flex justify-center items-center" onclick="document.getElementById('imageAdd_name').click()">
@@ -174,8 +174,8 @@
                             <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                             </svg>
-                        </div>  
-                    </button>    
+                        </div>
+                    </button>
                 </div>
             </form>
         </div>

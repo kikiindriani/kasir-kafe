@@ -7,15 +7,18 @@ use App\Models\menu;
 use App\Models\pembayaran;
 use App\Models\pemesanan;
 use Illuminate\Http\Request;
+
 class OrderController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $menu = menu::all();
         return view('transaksi', compact('menu'));
     }
 
-    public function store(request $request){
-        
+    public function store(request $request)
+    {
+
         $validate = $request->validate([
             'name' => 'required|string',
             'menu' => 'required|array',
@@ -31,14 +34,22 @@ class OrderController extends Controller
         $paymentAmount = $validate['paymentAmount'];
 
         $totalHarga = 0;
+
         foreach ($menuItems as $item) {
             $menu = menu::find($item['id_menu']);
             $hargaItem = $menu->harga * $item['quantity'];
             $pajakItem = $hargaItem * 0.12;
             $totalHarga += $hargaItem + $pajakItem;
         }
-        
+
         $paymentChange = $paymentAmount - $totalHarga;
+        $status = "";
+
+        if ($paymentChange >= 0) {
+            $status = "Sudah Dibayar";
+        } else {
+            $status = "Belum Dibayar";
+        }
 
         $pesanan = pemesanan::create([
             'jumlah' => count($menuItems),
@@ -62,20 +73,21 @@ class OrderController extends Controller
             'id_pegawai' => session('user')['user_id'],
             'tanggal_pembayaran' => now(),
             'metode_pembayaran' => $statusPembayaran,
-            'total_pembayaran' => $totalHarga,
-            'status' => "Sudah Dibayar",
+            'total_pembayaran' => $paymentAmount < $totalHarga ? $paymentAmount : $totalHarga,
+            'status' => $status,
         ]);
 
         return $this->showOrder($name, $pesanan->id_pemesanan, $statusPembayaran, $menuItems, $totalHarga, $paymentAmount, $paymentChange);
     }
 
-    public function showOrder($name, $id_pemesanan, $statusPembayaran, $menuItems, $totalHarga, $paymentAmount, $paymentChange){
+    public function showOrder($name, $id_pemesanan, $statusPembayaran, $menuItems, $totalHarga, $paymentAmount, $paymentChange)
+    {
         $pesanan = pemesanan::find($id_pemesanan);
 
-        foreach ($menuItems as &$item) { 
+        foreach ($menuItems as &$item) {
             $menu = menu::find($item['id_menu']);
-            $item['nama_menu'] = $menu->nama_menu; 
-            $item['harga'] = $menu->harga; 
+            $item['nama_menu'] = $menu->nama_menu;
+            $item['harga'] = $menu->harga;
             $item['subtotal'] = $item['quantity'] * $item['harga'];
         }
 
@@ -89,5 +101,4 @@ class OrderController extends Controller
             'totalKembalian' => $paymentChange,
         ]);
     }
-
 }

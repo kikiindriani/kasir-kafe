@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// route auth login, logout 
+// route auth login, logout
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login-process', [AuthController::class, 'loginProcess'])->name('login-process');
@@ -41,9 +41,10 @@ Route::post('/add-menu', [MenuController::class, 'store'])->name('menu.add');
 route::put('/menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
 route::delete('/menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.delete');
 
-// route order 
+// route order
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::post('/add-order', [OrderController::class, 'store'])->name('order.add');
 
 // route laporan
 Route::get('/laporan', [ReportController::class, 'report'])->name('report.report');
+Route::get('/laporan-detail', [ReportController::class, 'detail'])->name('report.detail');

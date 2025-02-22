@@ -28,7 +28,7 @@
                         <div class="h-14 px-5 bg-white rounded-[10px] border border-black/30 justify-start items-center gap-2.5 inline-flex">
                             <a href="/logout" class="flex items-center space-x-2">
                                 <div class="text-black text-sm font-semibold font-['Poppins'] leading-none">Keluar</div>
-                                
+
                                 <div class="w-5 h-5 relative overflow-hidden">
                                     <svg class="w-[18px] h-[18px] text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
@@ -57,14 +57,16 @@
                         <div class="content overflow-y-auto no-scrollbar">
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5" id="menuContainer">
                                 @foreach ($menu as $menuItem)
-                                    <div class="menu-item w-[195px] h-[200px] bg-white border border-[#DADADA] rounded-lg shadow-sm">
-                                        <button class="menu-select-btn" data-menu-id="{{ $menuItem->id_menu }}" data-modal-target="detail-menu-{{ $menuItem->id_menu }}" data-modal-toggle="detail-menu-{{ $menuItem->id_menu }}">
-                                            <img class="object-cover w-[195px] h-[135px] rounded-t-lg" src="{{ asset('storage/images/' . $menuItem->image_name) }}" alt="" />
-                                        </button>
-                                        <div class="px-2 flex flex-col h-full">
-                                            <p class="mb-1 font-semibold text-black text-sm">{{ $menuItem->nama_menu }}</p>
-                                            <p class="font-bold text-right text-[#965A50] text-lg">Rp {{ number_format($menuItem->harga, 0, '.', '.') }}</p>
-                                        </div>
+
+
+                                    <div class="menu-item w-[150px] h-[100px] bg-white border border-[#DADADA] rounded-lg shadow-sm flex justify-center items-center">
+                                        <button class="menu-select-btn z-50" data-menu-id="{{ $menuItem->id_menu }}" data-modal-target="detail-menu-{{ $menuItem->id_menu }}" data-modal-toggle="detail-menu-{{ $menuItem->id_menu }}">
+                                            {{-- <img class="object-cover w-[195px] h-[135px] rounded-t-lg" src="{{ asset('storage/images/' . $menuItem->image_name) }}" alt="" /> --}}
+                                            <div class="flex flex-col">
+                                                <p class="mb-1 font-semibold text-black text-sm">{{ $menuItem->nama_menu }}</p>
+                                                <p class="font-bold text-[#965A50] text-lg">Rp {{ number_format($menuItem->harga, 0, '.', '.') }}</p>
+                                            </div>
+                                </button>
                                     </div>
                                 @endforeach
                             </div>
@@ -80,7 +82,7 @@
                         <form action="{{ route('order.add') }}" method="post" id="orderForm">
                             <div class="text-black text-sm font-semibold font-['Poppins'] leading-[14px] mb-2">Nama pelanggan</div>
                             <div class="self-stretch h-11 px-5 py-[15px] bg-white rounded-[50px] border-2 mb-2 border-black flex items-center gap-8">
-                                <input type="text" name="name" placeholder="Indriiii" class="w-full text-[#040404] text-sm font-semibold font-['Poppins'] leading-[14px] bg-transparent outline-none" />
+                                <input type="text" name="name" placeholder="Indriiii" class="w-full text-[#040404] text-sm font-semibold font-['Poppins'] leading-[14px] bg-transparent outline-none" required/>
                             </div>
                             <div class="text-black text-sm font-semibold font-['Poppins'] leading-[14px] mb-2">Daftar Pesanan</div>
                             @csrf
@@ -97,7 +99,7 @@
                                     </label>
                                 </div>
                                 <div class="self-stretch h-11 px-5 py-[15px] bg-white rounded-[50px] border-2 mb-4 border-black flex items-center gap-8">
-                                    <input type="number" id="paymentAmount" name="paymentAmount" placeholder="Total bayar" class="w-full text-[#040404] text-sm font-semibold font-['Poppins'] leading-[14px] bg-transparent outline-none" />
+                                    <input type="number" id="paymentAmount" name="paymentAmount" placeholder="Total bayar" class="w-full text-[#040404] text-sm font-semibold font-['Poppins'] leading-[14px] bg-transparent outline-none" required min="0" />
                                 </div>
                             </div>
 
@@ -117,7 +119,7 @@
                                     </div>
                                     <div class="w-[299px] h-px bg-[#000000]"></div>
                                     <div class="self-stretch justify-between items-center inline-flex">
-                                        <div class="grow shrink basis-0 text-black text-sm font-semibold font-['Poppins'] leading-[14px]">Total</div> 
+                                        <div class="grow shrink basis-0 text-black text-sm font-semibold font-['Poppins'] leading-[14px]">Total</div>
                                         <input type="text" name="" disabled id="rincian-total" class="text-right text-black text-sm font-semibold font-['Poppins'] leading-[14px]" value="Rp 0"/>
                                     </div>
                                 </div>
@@ -173,14 +175,14 @@
                 if (menuName.includes(searchTerm)) {
                     item.style.display = '';
                 } else {
-                    item.style.display = 'none'; 
+                    item.style.display = 'none';
                 }
             });
         });
 
         const paymentToggle = document.getElementById('payment');
         const paymentMethod = document.getElementById('paymentMethod');
-        
+
         paymentToggle.addEventListener('change', function() {
             if (paymentToggle.checked) {
                 paymentMethod.value = 'Cashless';
@@ -189,19 +191,20 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-        const menuButtons = document.querySelectorAll('.menu-select-btn');
+        document.addEventListener('click', function () {
+            if (event.target.closest('.menu-select-btn')) {
+                const menuButtons = document.querySelectorAll('.menu-select-btn');
         const selectedMenuContainer = document.getElementById('selectedMenuContainer');
 
-        let totalAmount = 0; 
-        let totalTax = 0; 
+        let totalAmount = 0;
+        let totalTax = 0;
 
         menuButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const menuId = this.getAttribute('data-menu-id');
                 const menuName = this.closest('.menu-item').querySelector('p').innerText;
                 const menuPriceText = this.closest('.menu-item').querySelector('p + p').innerText;
-                const menuImage = this.closest('.menu-item').querySelector('img').src;
+                // const menuImage = this.closest('.menu-item').querySelector('img').src;
 
                 const menuPrice = parseInt(menuPriceText.replace(/[^\d]/g, ''), 10);
 
@@ -219,8 +222,8 @@
                 orderItem.id = `order-item-${menuId}`;
                 orderItem.innerHTML = `
                     <div class="grow shrink basis-0 h-[85px] justify-start items-start gap-4 flex">
-                        <img class="w-[92px] h-[85px] rounded-[15px]" src="${menuImage}" alt="${menuName}" />
-                        <div class="w-[160px] self-stretch flex-col justify-center items-end gap-2.5 inline-flex">
+
+                        <div class="w-[160px] self-stretch flex-col justify-center items-end gap-2.5 inline-flex w-full">
                             <div class="self-stretch justify-center items-center gap-2.5 inline-flex">
                                 <div class="grow shrink basis-0 flex-col justify-center items-start gap-[5px] inline-flex">
                                     <div class="text-[#222222] text-sm font-semibold font-['Poppins'] leading-[14px]">${menuName}</div>
@@ -267,7 +270,7 @@
                         if (quantity == 0) {
                             orderItem.remove();
                         }
-                    } 
+                    }
                 });
 
                 increaseButton.addEventListener('click', function() {
@@ -289,13 +292,13 @@
             const priceChange = menuPrice * quantity;
 
             if (action === 'increase') {
-                totalAmount += menuPrice; 
+                totalAmount += menuPrice;
             } else if (action === 'decrease') {
-                totalAmount -= menuPrice; 
+                totalAmount -= menuPrice;
             }
 
-            const tax = totalAmount * 0.12; 
-            const total = totalAmount + tax; 
+            const tax = totalAmount * 0.12;
+            const total = totalAmount + tax;
 
             // Update the displayed values
             document.querySelector('.rincian-subtotal').textContent = `Rp ${totalAmount.toLocaleString()}`;
@@ -312,6 +315,8 @@
             //     paymentChangeInput.value = paymentAmount;
             // }
         }
+        }
+
 
         // paymentAmountInput.addEventListener('input', function(){
         //     updateOrderDetails();
