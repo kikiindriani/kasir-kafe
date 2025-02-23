@@ -59,9 +59,9 @@
                                 @foreach ($menu as $menuItem)
 
 
-                                    <div class="menu-item w-[150px] h-[100px] bg-white border border-[#DADADA] rounded-lg shadow-sm flex justify-center items-center">
+                                    <div class="menu-item w-full h-max bg-white border border-[#DADADA] rounded-lg shadow-sm flex justify-center items-center overflow-hidden">
                                         <button class="menu-select-btn z-50" data-menu-id="{{ $menuItem->id_menu }}" data-modal-target="detail-menu-{{ $menuItem->id_menu }}" data-modal-toggle="detail-menu-{{ $menuItem->id_menu }}">
-                                            {{-- <img class="object-cover w-[195px] h-[135px] rounded-t-lg" src="{{ asset('storage/images/' . $menuItem->image_name) }}" alt="" /> --}}
+                                            <img class="object-cover w-[195px] h-[135px] rounded-t-lg" src="{{ asset('storage/images/' . $menuItem->image_name) }}" alt="" />
                                             <div class="flex flex-col">
                                                 <p class="mb-1 font-semibold text-black text-sm">{{ $menuItem->nama_menu }}</p>
                                                 <p class="font-bold text-[#965A50] text-lg">Rp {{ number_format($menuItem->harga, 0, '.', '.') }}</p>

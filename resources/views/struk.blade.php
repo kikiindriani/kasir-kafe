@@ -63,7 +63,17 @@
         <div class="mt-6 text-center">
             <p class="text-sm text-gray-600">Terima kasih telah berkunjung!</p>
         </div>
+        <div class="mt-6">
+            <button onclick="window.print()" class="w-full px-5 py-2.5 bg-[#389012] rounded-[10px] border border-[#389012] text-white font-semibold text-sm flex items-center justify-between">
+                Cetak Struk
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 12h14m-7 7V5"/>
+                </svg>
+            </button>
+        </div>
     </div>
+
+
 
     <div class="mt-6 text-center">
         <a href="{{ route('order.index') }}" class="text-sm text-blue-500 hover:underline">Kembali ke Order</a>
